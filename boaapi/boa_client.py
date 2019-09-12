@@ -23,13 +23,13 @@ from boaapi.util import CookiesTransport
 BOA_PROXY = "http://boa.cs.iastate.edu/boa/?q=boa/api"
 
 class NotLoggedInException(Exception):
-  pass
+    pass
 
 class BoaException(Exception):
     pass
 
 class BoaClient(object):
-    """ A client class for accessing boa's api 
+    """ A client class for accessing boa's api
 
     Attributes:
         server (xmlrpc.client.ServerProxy):
@@ -56,10 +56,10 @@ class BoaClient(object):
             return response
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
-            
+
     def close(self):
         """Log out of the boa framework using the remote api
-        
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -72,10 +72,10 @@ class BoaClient(object):
 
     def ensure_logged_in(self):
         """Checks if a user is currently logged in through the remote api
-        
+
         Returns:
             bool: True if user is logged in, false if otherwise
-        
+
         Raises:
             NotLoggedInException: if user is not currently logged in
         """
@@ -99,7 +99,7 @@ class BoaClient(object):
 
     def dataset_names(self):
         """Retrieves a list of names of all datasets provided by boa
-        
+
         Returns:
             list: the dataset names
 
@@ -118,13 +118,13 @@ class BoaClient(object):
 
     def get_dataset(self, name):
         """Retrieves a dataset given a name.
-        
+
         Args:
             name (str): The name of the input dataset to return.
 
         Returns:
             dict: a dictionary with the keys id and name
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -142,7 +142,7 @@ class BoaClient(object):
 
         Returns:
             JobHandle: the last submitted job
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -155,14 +155,14 @@ class BoaClient(object):
 
     def job_count(self, pub_only=False):
         """Retrieves the number of jobs submitted by a user
-        
+
         Args:
             pub_only (bool, optional): if true, return only public jobs
                 otherwise return all jobs
-        
+
         Returns:
             int: the number of jobs submitted by a user
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -179,9 +179,9 @@ class BoaClient(object):
             query (str): a boa query represented as a string.
             dataset (str, optional): the name of the input dataset.
 
-        Returns: 
-            (JobHandle) a job 
-            
+        Returns:
+            (JobHandle) a job
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -195,13 +195,13 @@ class BoaClient(object):
 
     def get_job(self, id):
         """Retrieves a job given an id.
-        
+
         Args:
-            id (int): the id of the job you want to retrieve 
+            id (int): the id of the job you want to retrieve
 
         Returns:
             JobHandle: the desired job.
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -213,7 +213,7 @@ class BoaClient(object):
 
     def job_list(self, pub_only=False, offset=0, length=1000):
         """Returns a list of the most recent jobs, based on an offset and length.
-        
+
         This includes public and private jobs.  Returned jobs are ordered from newest to oldest
 
         Args:
@@ -223,7 +223,7 @@ class BoaClient(object):
 
         Returns:
             list: a list of jobs where each element is a jobHandle
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -243,7 +243,7 @@ class BoaClient(object):
 
         Args:
             job (JobHandle): the job whose execution you want to stop
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -256,9 +256,9 @@ class BoaClient(object):
     def resubmit(self, job):
         """Resubmits a job to the framework
 
-        Args: 
+        Args:
             job (JobHandle): The job you want to resubmit
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -270,10 +270,10 @@ class BoaClient(object):
 
     def delete(self, job):
         """Deletes this job from the framework.
-        
-        Args: 
+
+        Args:
             job (JobHandle): the job you want to delete
-        
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -285,14 +285,14 @@ class BoaClient(object):
 
     def set_public(self, job, is_public):
         """Modifies the public/private status of this job.
-		
-		Args: 
-			is_public (bool): 'True' to make it public, False to make it private
+
+        Args:
+            is_public (bool): 'True' to make it public, False to make it private
             job (JobHandle)
-        
+
         Raises:
             BoaException: if theres an issue reading from the server
-		"""
+        """
         self.ensure_logged_in()
         try:
             if is_public is True:
@@ -304,10 +304,10 @@ class BoaClient(object):
 
     def public_status(self, job):
         """Get the jobs public/private status.
-        
-        Args: 
+
+        Args:
             job (JobHandle)
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -323,10 +323,10 @@ class BoaClient(object):
 
     def get_url(self, job):
         """Retrieves the jobs URL.
-        
-        Args: 
+
+        Args:
             job (JobHandle)
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -338,10 +338,10 @@ class BoaClient(object):
 
     def public_url(self, job):
         """Get the jobs public page URL.
-        
-        Args: 
+
+        Args:
             job (JobHandle)
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -353,10 +353,10 @@ class BoaClient(object):
 
     def get_compiler_errors(self, job):
         """Return any errors from trying to compile the job.
-        
-        Args: 
+
+        Args:
             job (JobHandle)
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -368,10 +368,10 @@ class BoaClient(object):
 
     def source(self, job):
         """Return the source query for this job.
-        
-        Args: 
+
+        Args:
             job (JobHandle)
-            
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
@@ -383,7 +383,7 @@ class BoaClient(object):
 
     def output(self, job):
         """Return the output for this job, if it finished successfully and has an output.
-        
+
         Raises:
             BoaException: if theres an issue reading from the server
         """
