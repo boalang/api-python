@@ -394,3 +394,17 @@ class BoaClient(object):
             return self.server.job.output(job.id)
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
+
+    def output_size(self, job):
+        """Return the output size for this job, if it finished successfully and has an output.
+
+        Raises:
+            BoaException: if theres an issue reading from the server
+        """
+        self.ensure_logged_in()
+        try:
+            if job.exec_status != "Finished":
+                return "Job is currently running"
+            return self.server.job.outputsize(job.id)
+        except xmlrpc.client.Fault as e:
+            raise BoaException(e).with_traceback(e.__traceback__)

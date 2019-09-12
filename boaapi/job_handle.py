@@ -85,6 +85,10 @@ class JobHandle:
         """Return the output for this job, if it finished successfully and has output."""
         return self.client.output(self)
 
+    def output_size(self):
+        """Return the output size for this job, if it finished successfully and has output."""
+        return self.client.output_size(self)
+
     def refresh(self):
         """Refreshes the cached data for this job."""
         job = self.client.get_job(self.id)
