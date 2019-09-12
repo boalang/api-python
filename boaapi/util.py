@@ -15,7 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import http.client
 import xmlrpc
+from urllib.parse import urlsplit
 from boaapi.job_handle import JobHandle
 
 class CookiesTransport(xmlrpc.client.Transport):
@@ -45,3 +47,12 @@ class CookiesTransport(xmlrpc.client.Transport):
 
 def parse_job(client, job):
     return JobHandle(client, job['id'], job['submitted'], job['input'], job['compiler_status'], job['hadoop_status'])
+
+def fetch_url(url):
+    base_url = urlsplit(url)
+    conn = http.client.HTTPConnection(base_url.hostname, base_url.port if base_url.port != None else (443 if base_url.scheme == 'https' else 80))
+    conn.request("GET", url)
+    r1 = conn.getresponse()
+    if r1.status == 301:
+        return fetch_url(r1.getheader('Location'))
+    return r1.read()

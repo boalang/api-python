@@ -17,8 +17,7 @@
 #
 import xmlrpc.client
 import traceback
-from boaapi.util import parse_job
-from boaapi.util import CookiesTransport
+from boaapi.util import CookiesTransport, parse_job, fetch_url
 
 BOA_PROXY = "http://boa.cs.iastate.edu/boa/?q=boa/api"
 
@@ -391,7 +390,7 @@ class BoaClient(object):
         try:
             if job.exec_status != "Finished":
                 return "Job is currently running"
-            return self.server.job.output(job.id)
+            return fetch_url(self.server.job.output(job.id))
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
 
