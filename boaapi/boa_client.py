@@ -1,6 +1,7 @@
 import xmlrpc.client
 import traceback
-import util
+from boaapi.util import parse_job
+from boaapi.util import CookiesTransport
 
 BOA_PROXY = "http://boa.cs.iastate.edu/boa/?q=boa/api"
 
@@ -20,7 +21,7 @@ class BoaClient(object):
 
     def __init__(self):
         """Create a new Boa API client, using the standard domain/path."""
-        self.trans = util.CookiesTransport()
+        self.trans = CookiesTransport()
         self.__logged_in = False
         self.server = xmlrpc.client.ServerProxy(BOA_PROXY, transport=self.trans)
 
@@ -171,7 +172,7 @@ class BoaClient(object):
         try:
             id = 0 if dataset is None else dataset.get_id()
             job = self.server.boa.submit(query, self.datasets()[id]['id'])
-            return util.parse_job(self, job)
+            return parse_job(self, job)
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
 
@@ -189,7 +190,7 @@ class BoaClient(object):
         """
         self.ensure_logged_in()
         try:
-            return util.parse_job(self, self.server.boa.job(id))
+            return parse_job(self, self.server.boa.job(id))
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
 
@@ -215,7 +216,7 @@ class BoaClient(object):
             newDict = []
             if(len(list) > 0):
                 for i in list:
-                    newDict.append(util.parse_job(self, i))
+                    newDict.append(parse_job(self, i))
             return newDict
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)

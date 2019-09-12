@@ -1,5 +1,5 @@
 import xmlrpc
-from job_handle import JobHandle
+from boaapi.job_handle import JobHandle
 
 class CookiesTransport(xmlrpc.client.Transport):
     """A Transport subclass that retains cookies over its lifetime."""
