@@ -186,9 +186,9 @@ class BoaClient(object):
         """
         self.ensure_logged_in()
         try:
-            id = 0 if dataset is None else dataset.get_id()
-            job = self.server.boa.submit(query, self.datasets()[id]['id'])
-            return parse_job(self, job)
+            if dataset is None:
+                dataset = self.datasets()[0]
+            return parse_job(self, self.server.boa.submit(query, dataset.get('id')))
         except xmlrpc.client.Fault as e:
             raise BoaException(e).with_traceback(e.__traceback__)
 
