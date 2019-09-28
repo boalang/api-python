@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="boa-api",
-    version="0.1.2",
+    version="0.1.3",
     author="Boa Project",
     author_email="boasupport@iastate.edu",
     description="Client API for using the Boa infrastructure",
@@ -20,5 +20,5 @@ setuptools.setup(
         "Intended Audience :: Science/Research",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.5',
 )
