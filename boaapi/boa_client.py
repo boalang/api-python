@@ -19,7 +19,7 @@ import xmlrpc.client
 import traceback
 from boaapi.util import CookiesTransport, parse_job, fetch_url
 
-BOA_PROXY = "http://boa.cs.iastate.edu/boa/?q=boa/api"
+BOA_API_ENDPOINT = "http://boa.cs.iastate.edu/boa/?q=boa/api"
 
 class NotLoggedInException(Exception):
     pass
@@ -39,7 +39,7 @@ class BoaClient(object):
         """Create a new Boa API client, using the standard domain/path."""
         self.trans = CookiesTransport()
         self.__logged_in = False
-        self.server = xmlrpc.client.ServerProxy(BOA_PROXY, transport=self.trans)
+        self.server = xmlrpc.client.ServerProxy(BOA_API_ENDPOINT, transport=self.trans)
 
     def login(self, username, password):
         """log into the boa framework using the remote api
