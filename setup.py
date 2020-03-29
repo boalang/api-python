@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="boa-api",
-    version="0.1.3",
+    version="0.1.4",
     author="Boa Project",
     author_email="boasupport@iastate.edu",
     description="Client API for using the Boa infrastructure",
