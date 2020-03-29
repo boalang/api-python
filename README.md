@@ -28,7 +28,7 @@ foreach (i: int; def(p.programming_languages[i]))
 job = client.query(query, client.get_dataset('2019 October/GitHub'))
 print('query submitted')
 
-while job.compiler_status == 'Running' or job.exec_status == 'Running' or job.compiler_status == 'Waiting' or job.exec_status == 'Waiting':
+while job.is_running():
     job.refresh()
     print('job ' + str(job.id) + ' still running, waiting 10s...')
     time.sleep(10)
