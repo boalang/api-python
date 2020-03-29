@@ -16,7 +16,6 @@
 # limitations under the License.
 #
 import xmlrpc.client
-import traceback
 from boaapi.util import CookiesTransport, parse_job, fetch_url
 
 BOA_API_ENDPOINT = "http://boa.cs.iastate.edu/boa/?q=boa/api"
@@ -59,7 +58,7 @@ class BoaClient(object):
             self.trans.add_csrf(response["token"])
             return response
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def close(self):
         """Log out of the boa framework using the remote api
@@ -72,7 +71,7 @@ class BoaClient(object):
             self.server.user.logout()
             self.__logged_in = False
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def ensure_logged_in(self):
         """Checks if a user is currently logged in through the remote api
@@ -99,7 +98,7 @@ class BoaClient(object):
         try:
             return self.server.boa.datasets()
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def dataset_names(self):
         """Retrieves a list of names of all datasets provided by boa
@@ -118,7 +117,7 @@ class BoaClient(object):
                 dataset_names.append(x['name'])
             return dataset_names
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def get_dataset(self, name):
         """Retrieves a dataset given a name.
@@ -139,7 +138,7 @@ class BoaClient(object):
                     return x
             return None
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def last_job(self):
         """Retrieves the most recently submitted job
@@ -155,7 +154,7 @@ class BoaClient(object):
             jobs = self.job_list(False, 0, 1)
             return jobs[0]
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def job_count(self, pub_only=False):
         """Retrieves the number of jobs submitted by a user
@@ -174,7 +173,7 @@ class BoaClient(object):
         try:
             return self.server.boa.count(pub_only)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def query(self, query, dataset=None):
         """Submits a new query to Boa to query the specified and returns a handle to the new job.
@@ -195,7 +194,7 @@ class BoaClient(object):
                 dataset = self.datasets()[0]
             return parse_job(self, self.server.boa.submit(query, dataset.get('id')))
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def get_job(self, id):
         """Retrieves a job given an id.
@@ -213,7 +212,7 @@ class BoaClient(object):
         try:
             return parse_job(self, self.server.boa.job(id))
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def job_list(self, pub_only=False, offset=0, length=1000):
         """Returns a list of the most recent jobs, based on an offset and length.
@@ -240,7 +239,7 @@ class BoaClient(object):
                     newDict.append(parse_job(self, i))
             return newDict
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def stop(self, job):
         """Stops the execution of a job
@@ -255,7 +254,7 @@ class BoaClient(object):
         try:
             self.server.job.stop(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def resubmit(self, job):
         """Resubmits a job to the framework
@@ -270,7 +269,7 @@ class BoaClient(object):
         try:
             self.server.job.resubmit(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def delete(self, job):
         """Deletes this job from the framework.
@@ -285,7 +284,7 @@ class BoaClient(object):
         try:
             self.server.job.delete(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def set_public(self, job, is_public):
         """Modifies the public/private status of this job.
@@ -304,7 +303,7 @@ class BoaClient(object):
             else:
                 self.server.job.setpublic(job.id, 0)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def public_status(self, job):
         """Get the jobs public/private status.
@@ -323,7 +322,7 @@ class BoaClient(object):
             else:
                 return False
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def get_url(self, job):
         """Retrieves the jobs URL.
@@ -338,7 +337,7 @@ class BoaClient(object):
         try:
             return self.server.job.url(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def public_url(self, job):
         """Get the jobs public page URL.
@@ -353,7 +352,7 @@ class BoaClient(object):
         try:
             return self.server.job.publicurl(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def get_compiler_errors(self, job):
         """Return any errors from trying to compile the job.
@@ -368,7 +367,7 @@ class BoaClient(object):
         try:
             return self.server.job.compilerErrors(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def source(self, job):
         """Return the source query for this job.
@@ -383,7 +382,7 @@ class BoaClient(object):
         try:
             return self.server.job.source(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def output(self, job):
         """Return the output for this job, if it finished successfully and has an output.
@@ -397,7 +396,7 @@ class BoaClient(object):
                 return "Job is currently running"
             return fetch_url(self.server.job.output(job.id))
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
 
     def output_size(self, job):
         """Return the output size for this job, if it finished successfully and has an output.
@@ -411,4 +410,4 @@ class BoaClient(object):
                 return "Job is currently running"
             return self.server.job.outputsize(job.id)
         except xmlrpc.client.Fault as e:
-            raise BoaException(e).with_traceback(e.__traceback__)
+            raise BoaException() from e
