@@ -16,7 +16,9 @@
 # limitations under the License.
 #
 class JobHandle:
-    """A class for handling jobs sent to the framework
+    """A class for handling jobs sent to the framework.
+    This class is not intended to be instantiated directly.
+    Please use the BoaClient class to obtain instances of JobHandle.
 
     Attributes:
         client (BoaClient): the xmlrpc client
