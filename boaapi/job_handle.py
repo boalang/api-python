@@ -97,3 +97,6 @@ class JobHandle:
         self.compiler_status = job.compiler_status
         self.exec_status = job.exec_status
         self.date = job.date
+
+    def is_running(self):
+        return self.compiler_status == 'Running' or self.exec_status == 'Running' or self.compiler_status == 'Waiting' or self.exec_status == 'Waiting'
