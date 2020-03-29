@@ -6,14 +6,27 @@ The Boa Python Client API provides programmatic access to the Boa language and i
 
 For more information about Boa, please see the main website: http://boa.cs.iastate.edu/
 
-## Example Use
+## Creating a client
+
+The main entry point for the API is a `BoaClient` object.  You use this to log in, submit queries, find datasets, log out, etc.  To instantiate this object, you must provide the API endpoint's URL.  The API has several constants for common endpoints:
+
+`BOA_API_ENDPOINT` - for the Boa MSR endpoint
+`BOAC_API_ENDPOINT` - for the Boa CORD-19 endpoint
+
+For example if you want a client for the CORD-19 endpoint, you do the following:
+
+`client = BoaClient(endpoint=BOAC_API_ENDPOINT)`
+
+If you don't specify an endpoint, it will default to the MSR endpoint.
+
+## Example Use (using MSR endpoint)
 
 ````python
 import time
 
-from boaapi.boa_client import BoaClient
+from boaapi.boa_client import BoaClient, BOA_API_ENDPOINT
 
-client = BoaClient()
+client = BoaClient(endpoint=BOA_API_ENDPOINT)
 client.login("boa username", "boa password")
 print('successfully logged in to Boa API')
 
