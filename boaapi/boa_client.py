@@ -232,14 +232,19 @@ class BoaClient(object):
         """
         self.ensure_logged_in()
         try:
-            list = self.server.boa.jobs(pub_only, offset, length)
+            list = self.server.boa.range(pub_only, offset, length)
             newDict = []
-            if(len(list) > 0):
+            if (len(list) > 0):
                 for i in list:
                     newDict.append(parse_job(self, i))
             return newDict
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
+
+    ####################################################################
+    # the methods below are not meant to be called by clients directly #
+    # but rather through a handle                                      #
+    ####################################################################
 
     def stop(self, job):
         """Stops the execution of a job
