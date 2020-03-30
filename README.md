@@ -52,9 +52,8 @@ elif job.exec_status == 'Error':
     print('job ' + str(job.id) + ' had exec error')
 else:
     try:
-        output = job.output().decode('utf-8')
         print('output:')
-        print(output)
+        print(job.output())
     except:
         pass
 
