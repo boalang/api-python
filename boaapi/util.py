@@ -19,6 +19,7 @@ import http.client
 import xmlrpc
 from urllib.parse import urlsplit
 from boaapi.job_handle import JobHandle
+from boaapi.status import CompilerStatus, ExecutionStatus
 import boaapi.boa_client
 
 class CookiesTransport(xmlrpc.client.Transport):
@@ -47,7 +48,25 @@ class CookiesTransport(xmlrpc.client.Transport):
         return super().parse_response(response)
 
 def parse_job(client, job):
-    return JobHandle(client, job['id'], job['submitted'], job['input'], job['compiler_status'], job['hadoop_status'])
+    return JobHandle(client, job['id'], job['submitted'], job['input'], parse_compiler_status(job['compiler_status']), parse_execution_status(job['hadoop_status']))
+
+def parse_compiler_status(status):
+    if status == 'Waiting':
+        return CompilerStatus.WAITING
+    if status == 'Running':
+        return CompilerStatus.RUNNING
+    if status == 'Finished':
+        return CompilerStatus.FINISHED
+    return CompilerStatus.ERROR
+
+def parse_execution_status(status):
+    if status == 'Waiting':
+        return ExecutionStatus.WAITING
+    if status == 'Running':
+        return ExecutionStatus.RUNNING
+    if status == 'Finished':
+        return ExecutionStatus.FINISHED
+    return ExecutionStatus.ERROR
 
 def fetch_url(url):
     base_url = urlsplit(url)

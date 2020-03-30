@@ -25,6 +25,7 @@ If you don't specify an endpoint, it will default to the MSR endpoint.
 import time
 
 from boaapi.boa_client import BoaClient, BOA_API_ENDPOINT
+from boaapi.status import CompilerStatus, ExecutionStatus
 
 client = BoaClient(endpoint=BOA_API_ENDPOINT)
 client.login("boa username", "boa password")
@@ -46,9 +47,9 @@ while job.is_running():
     print('job ' + str(job.id) + ' still running, waiting 10s...')
     time.sleep(10)
 
-if job.compiler_status == 'Error':
+if job.compiler_status is CompilerStatus.ERROR:
     print('job ' + str(job.id) + ' had compile error')
-elif job.exec_status == 'Error':
+elif job.exec_status is ExecutionStatus.ERROR:
     print('job ' + str(job.id) + ' had exec error')
 else:
     try:

@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from boaapi.status import CompilerStatus, ExecutionStatus
+
 class JobHandle:
     """A class for handling jobs sent to the framework.
     This class is not intended to be instantiated directly.
@@ -99,4 +101,4 @@ class JobHandle:
         self.date = job.date
 
     def is_running(self):
-        return self.compiler_status == 'Running' or self.exec_status == 'Running' or self.compiler_status == 'Waiting' or self.exec_status == 'Waiting'
+        return self.compiler_status is CompilerStatus.RUNNING or self.exec_status is ExecutionStatus.RUNNING or self.compiler_status is CompilerStatus.WAITING or self.exec_status is ExecutionStatus.WAITING

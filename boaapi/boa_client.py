@@ -17,6 +17,7 @@
 #
 import xmlrpc.client
 from boaapi.util import CookiesTransport, parse_job, fetch_url
+from boaapi.status import CompilerStatus, ExecutionStatus
 
 BOA_API_ENDPOINT = "http://boa.cs.iastate.edu/boa/?q=boa/api"
 BOAC_API_ENDPOINT = "http://boa.cs.iastate.edu/boac/?q=boa/api"
@@ -397,7 +398,7 @@ class BoaClient(object):
         """
         self.ensure_logged_in()
         try:
-            if job.exec_status != "Finished":
+            if job.exec_status != ExecutionStatus.FINISHED:
                 return "Job is currently running"
             return fetch_url(self.server.job.output(job.id)).decode('utf-8')
         except xmlrpc.client.Fault as e:
@@ -411,7 +412,7 @@ class BoaClient(object):
         """
         self.ensure_logged_in()
         try:
-            if job.exec_status != "Finished":
+            if job.exec_status != ExecutionStatus.FINISHED:
                 return "Job is currently running"
             return self.server.job.outputsize(job.id)
         except xmlrpc.client.Fault as e:
