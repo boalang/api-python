@@ -247,7 +247,7 @@ class BoaClient(object):
     # but rather through a handle                                      #
     ####################################################################
 
-    def stop(self, job):
+    def _stop(self, job):
         """Stops the execution of a job
 
         Args:
@@ -262,7 +262,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def resubmit(self, job):
+    def _resubmit(self, job):
         """Resubmits a job to the framework
 
         Args:
@@ -277,7 +277,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def delete(self, job):
+    def _delete(self, job):
         """Deletes this job from the framework.
 
         Args:
@@ -292,7 +292,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def set_public(self, job, is_public):
+    def _set_public(self, job, is_public):
         """Modifies the public/private status of this job.
 
         Args:
@@ -311,7 +311,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def public_status(self, job):
+    def _public_status(self, job):
         """Get the jobs public/private status.
 
         Args:
@@ -330,7 +330,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def get_url(self, job):
+    def _get_url(self, job):
         """Retrieves the jobs URL.
 
         Args:
@@ -345,7 +345,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def public_url(self, job):
+    def _public_url(self, job):
         """Get the jobs public page URL.
 
         Args:
@@ -360,7 +360,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def get_compiler_errors(self, job):
+    def _get_compiler_errors(self, job):
         """Return any errors from trying to compile the job.
 
         Args:
@@ -375,7 +375,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def source(self, job):
+    def _source(self, job):
         """Return the source query for this job.
 
         Args:
@@ -390,7 +390,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def output(self, job):
+    def _output(self, job):
         """Return the output for this job, if it finished successfully and has an output.
 
         Raises:
@@ -404,7 +404,7 @@ class BoaClient(object):
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
-    def output_size(self, job):
+    def _output_size(self, job):
         """Return the output size for this job, if it finished successfully and has an output.
 
         Raises:

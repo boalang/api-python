@@ -47,19 +47,19 @@ class JobHandle:
 
     def stop(self):
         """Stops the job if it is running."""
-        return self.client.stop(self)
+        return self.client._stop(self)
 
     def resubmit(self):
         """Resubmits this job."""
-        return self.client.resubmit(self)
+        return self.client._resubmit(self)
 
     def delete(self):
         """Deletes this job from the framework."""
-        return self.client.delete(self)
+        return self.client._delete(self)
 
     def get_url(self):
         """Retrieves the jobs URL."""
-        return self.client.get_url(self)
+        return self.client._get_url(self)
 
     def set_public(self, status):
         """Modifies the public/private status of this job.
@@ -67,31 +67,31 @@ class JobHandle:
         Args:
             status (bool): 'True' to make it public, False to make it private
         """
-        return self.client.set_public(self, status)
+        return self.client._set_public(self, status)
 
     def public_status(self):
         """Get the jobs public/private status."""
-        return self.client.public_status(self)
+        return self.client._public_status(self)
 
     def public_url(self):
         """Get the jobs public page URL."""
-        return self.client.public_url(self)
+        return self.client._public_url(self)
 
     def source(self):
         """Return the source query for this job."""
-        return self.client.source(self)
+        return self.client._source(self)
 
     def get_compiler_errors(self):
         """Return any errors from trying to compile the job."""
-        return self.client.get_compiler_errors(self)
+        return self.client._get_compiler_errors(self)
 
     def output(self):
         """Return the output for this job, if it finished successfully and has output."""
-        return self.client.output(self)
+        return self.client._output(self)
 
     def output_size(self):
         """Return the output size for this job, if it finished successfully and has output."""
-        return self.client.output_size(self)
+        return self.client._output_size(self)
 
     def refresh(self):
         """Refreshes the cached data for this job."""
