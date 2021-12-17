@@ -234,11 +234,11 @@ class BoaClient(object):
         self.ensure_logged_in()
         try:
             list = self.server.boa.range(pub_only, offset, length)
-            newDict = []
+            jobs = []
             if (len(list) > 0):
                 for i in list:
-                    newDict.append(parse_job(self, i))
-            return newDict
+                    jobs.append(parse_job(self, i))
+            return jobs
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
