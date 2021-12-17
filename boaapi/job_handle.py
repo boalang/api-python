@@ -47,7 +47,7 @@ class JobHandle:
 
     def stop(self):
         """Stops the job if it is running."""
-        return self.client._stop(self)
+        self.client._stop(self)
 
     def resubmit(self):
         """Resubmits this job."""
@@ -55,7 +55,7 @@ class JobHandle:
 
     def delete(self):
         """Deletes this job from the framework."""
-        return self.client._delete(self)
+        self.client._delete(self)
 
     def get_url(self):
         """Retrieves the jobs URL."""
@@ -67,7 +67,7 @@ class JobHandle:
         Args:
             status (bool): 'True' to make it public, False to make it private
         """
-        return self.client._set_public(self, status)
+        self.client._set_public(self, status)
 
     def public_status(self):
         """Get the jobs public/private status."""
