@@ -226,7 +226,7 @@ class BoaClient(object):
             length (int, optional): the number of jobs (at most) to return
 
         Returns:
-            list: a list of jobs where each element is a jobHandle
+            list: a list of jobs where each element is a JobHandle
 
         Raises:
             BoaException: if theres an issue reading from the server
