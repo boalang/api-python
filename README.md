@@ -22,13 +22,17 @@ If you don't specify an endpoint, it will default to the MSR endpoint.
 ## Example Use (using MSR endpoint)
 
 ````python
+import getpass
 import time
 
 from boaapi.boa_client import BoaClient, BOA_API_ENDPOINT
 from boaapi.status import CompilerStatus, ExecutionStatus
 
 client = BoaClient(endpoint=BOA_API_ENDPOINT)
-client.login("boa username", "boa password")
+user = input("Username [%s]: " % getpass.getuser())
+if not user:
+    user = getpass.getuser()
+client.login(user, getpass.getpass())
 print('successfully logged in to Boa API')
 
 query = """# Counting the 10 most used programming languages
