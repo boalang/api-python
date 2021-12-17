@@ -323,7 +323,7 @@ class BoaClient(object):
         self.ensure_logged_in()
         try:
             result = self.server.job.public(job.id)
-            if result is 1:
+            if result == 1:
                 return True
             else:
                 return False
