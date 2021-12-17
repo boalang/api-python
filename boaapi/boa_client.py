@@ -399,7 +399,7 @@ class BoaClient(object):
         self.ensure_logged_in()
         try:
             if job.exec_status != ExecutionStatus.FINISHED:
-                return "Job is currently running"
+                raise BoaException("Job is currently running")
             return fetch_url(self.server.job.output(job.id)).decode('utf-8')
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
@@ -413,7 +413,7 @@ class BoaClient(object):
         self.ensure_logged_in()
         try:
             if job.exec_status != ExecutionStatus.FINISHED:
-                return "Job is currently running"
+                raise BoaException("Job is currently running")
             return self.server.job.outputsize(job.id)
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
