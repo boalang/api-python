@@ -69,11 +69,11 @@ class JobHandle:
         """
         self.client._set_public(self, status)
 
-    def public_status(self):
+    def get_public(self):
         """Get the jobs public/private status."""
         return self.client._public_status(self)
 
-    def public_url(self):
+    def get_public_url(self):
         """Get the jobs public page URL."""
         return self.client._public_url(self)
 
