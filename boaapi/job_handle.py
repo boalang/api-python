@@ -27,8 +27,8 @@ class JobHandle:
         id (int): the jobs id
         date (str): the date and time the job was submitted
         dataset (dict): the dataset used to executed the job
-        exec_status (str): the execution status for the job
-        compiler_status (str): the compiler status for the job
+        exec_status (int): the execution status for the job
+        compiler_status (int): the compiler status for the job
     """
 
     def __init__(self, client, id, date, dataset, compiler_status, exec_status):
