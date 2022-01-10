@@ -15,9 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import gzip
 import http.client
-import xmlrpc
+import io
 from urllib.parse import urlsplit
+import xmlrpc
 from boaapi.job_handle import JobHandle
 from boaapi.status import CompilerStatus, ExecutionStatus
 import boaapi.boa_client
@@ -70,14 +72,21 @@ def parse_execution_status(status):
 
 def fetch_url(url):
     base_url = urlsplit(url)
-    conn = http.client.HTTPConnection(base_url.hostname, base_url.port if base_url.port != None else (443 if base_url.scheme == 'https' else 80))
+    if base_url.scheme == 'https':
+        conn = http.client.HTTPSConnection(base_url.hostname, base_url.port)
+    else:
+        conn = http.client.HTTPConnection(base_url.hostname, base_url.port)
 
     try:
-        conn.request("GET", url)
+        conn.request("GET", url, headers={ 'Accept-encoding': 'gzip' })
     except http.client.InvalidURL as e:
         raise boaapi.boa_client.BoaException(url) from e
 
     r1 = conn.getresponse()
     if r1.status == 301:
         return fetch_url(r1.getheader('Location'))
+
+    if r1.getheader('Content-Encoding') == 'gzip':
+        return gzip.GzipFile(fileobj=io.BytesIO(r1.read())).read()
+
     return r1.read()
