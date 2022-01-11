@@ -1,7 +1,8 @@
 #
-# Copyright 2019, Hridesh Rajan, Kamsi Ibeziako, Robert Dyer,
+# Copyright 2019-2022, Hridesh Rajan, Kamsi Ibeziako, Robert Dyer,
 #                 Bowling Green State University
-#                 and Iowa State University of Science and Technology
+#                 Iowa State University of Science and Technology
+#                 and University of Nebraska Board of Regents
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

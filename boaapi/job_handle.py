@@ -1,7 +1,8 @@
 #
-# Copyright 2019, Hridesh Rajan, Kamsi Ibeziako, Robert Dyer,
+# Copyright 2019-2022, Hridesh Rajan, Kamsi Ibeziako, Robert Dyer,
 #                 Bowling Green State University
-#                 and Iowa State University of Science and Technology
+#                 Iowa State University of Science and Technology
+#                 and University of Nebraska Board of Regents
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -92,6 +93,18 @@ class JobHandle:
     def output_size(self):
         """Return the output size for this job, if it finished successfully and has output."""
         return self.client._output_size(self)
+
+    def wait(self):
+        """Waits for a job to finish.
+
+        Returns:
+            boolean indicating if the job had no error
+        """
+        from time import sleep
+        while self.is_running():
+            sleep(2)
+            self.refresh()
+        return not (self.compiler_status is CompilerStatus.ERROR or self.exec_status is ExecutionStatus.ERROR)
 
     def refresh(self):
         """Refreshes the cached data for this job."""
