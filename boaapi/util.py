@@ -73,6 +73,9 @@ def parse_execution_status(status):
 
 def fetch_url(url):
     base_url = urlsplit(url)
+    if base_url.scheme == '':
+        raise boaapi.boa_client.BoaException(url)
+
     if base_url.scheme == 'https':
         conn = http.client.HTTPSConnection(base_url.hostname, base_url.port)
     else:
