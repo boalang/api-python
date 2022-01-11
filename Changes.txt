@@ -1,3 +1,7 @@
+0.1.7 - Tuesday 11 January 2022
+    * better error handling for downloading outputs
+    * add wait() function to job handles
+
 0.1.6 - Sunday 9 January 2022
     * use gzip encoding to speed up output transfers
 
