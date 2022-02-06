@@ -10,8 +10,8 @@ For more information about Boa, please see the main website: http://boa.cs.iasta
 
 The main entry point for the API is a `BoaClient` object.  You use this to log in, submit queries, find datasets, log out, etc.  To instantiate this object, you must provide the API endpoint's URL.  The API has several constants for common endpoints:
 
-`BOA_API_ENDPOINT` - for the Boa MSR endpoint
-`BOAC_API_ENDPOINT` - for the Boa CORD-19 endpoint
+- `BOA_API_ENDPOINT` - for the Boa MSR endpoint
+- `BOAC_API_ENDPOINT` - for the Boa CORD-19 endpoint
 
 For example if you want a client for the CORD-19 endpoint, you do the following:
 
