@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import xml
 import xmlrpc.client
 from boaapi.util import CookiesTransport, parse_job, fetch_url
 from boaapi.status import CompilerStatus, ExecutionStatus
@@ -58,6 +59,8 @@ class BoaClient(object):
             response = self.server.user.login(username, password)
             self.trans.add_csrf(response["token"])
             return response
+        except xml.parsers.expat.ExpatError as e:
+            raise BoaException("XMLRPC problem - most likely you have an invalid ENDPOINT set. Try using: BoaClient(endpoint=BOA_API_ENDPOINT)") from e
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
 
