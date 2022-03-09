@@ -25,7 +25,7 @@ from boaapi.job_handle import JobHandle
 from boaapi.status import CompilerStatus, ExecutionStatus
 import boaapi.boa_client
 
-class CookiesTransport(xmlrpc.client.Transport):
+class CookiesTransport(xmlrpc.client.SafeTransport):
     """A Transport subclass that retains cookies over its lifetime."""
 
     def __init__(self):
