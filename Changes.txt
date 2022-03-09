@@ -1,3 +1,7 @@
+0.1.8 - Tuesday 8 March 2022
+    * update ENDPOINTs to use https instead of http
+    * better error handling for clients with bad ENDPOINT set
+
 0.1.7 - Tuesday 11 January 2022
     * better error handling for downloading outputs
     * add wait() function to job handles
@@ -23,5 +27,4 @@
     * add output_size()
 
 0.1.0 - Wednesday 11 September 2019
-
     * initial release of the Boa client API for Python
