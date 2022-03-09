@@ -20,8 +20,8 @@ import xmlrpc.client
 from boaapi.util import CookiesTransport, parse_job, fetch_url
 from boaapi.status import CompilerStatus, ExecutionStatus
 
-BOA_API_ENDPOINT = "http://boa.cs.iastate.edu/boa/?q=boa/api"
-BOAC_API_ENDPOINT = "http://boa.cs.iastate.edu/boac/?q=boa/api"
+BOA_API_ENDPOINT = "https://boa.cs.iastate.edu/boa/?q=boa/api"
+BOAC_API_ENDPOINT = "https://boa.cs.iastate.edu/boac/?q=boa/api"
 
 class NotLoggedInException(Exception):
     pass
