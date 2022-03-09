@@ -1,4 +1,4 @@
-0.1.8 - Tuesday 8 March 2022
+0.1.9 - Tuesday 8 March 2022
     * update ENDPOINTs to use https instead of http
     * better error handling for clients with bad ENDPOINT set
 
