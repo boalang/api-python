@@ -1,4 +1,4 @@
-0.1.12 - Thursday 7 July 2022
+0.1.13 - Thursday 7 July 2022
     * add support for getting job output hashes
     * added type hints to package
 
