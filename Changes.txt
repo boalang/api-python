@@ -1,5 +1,6 @@
-0.1.11 - Thursday 7 July 2022
+0.1.12 - Thursday 7 July 2022
     * add support for getting job output hashes
+    * added type hints to package
 
 0.1.10 - Sunday 1 May 2022
     * fix is_running() logic for job handles with compile errors
