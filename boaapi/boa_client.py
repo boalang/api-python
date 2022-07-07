@@ -420,3 +420,18 @@ class BoaClient(object):
             return self.server.job.outputsize(job.id)
         except xmlrpc.client.Fault as e:
             raise BoaException() from e
+
+    def _output_hash(self, job):
+        """Return a number of bytes and hash of the output for this job, if it finished successfully and has output.
+
+        Raises:
+            BoaException: if theres an issue reading from the server
+        """
+        self.ensure_logged_in()
+        try:
+            if job.exec_status != ExecutionStatus.FINISHED:
+                raise BoaException("Job is currently running")
+            res = self.server.job.outputhash(job.id)
+            return (int(res[0]), str(res[1]))
+        except xmlrpc.client.Fault as e:
+            raise BoaException() from e

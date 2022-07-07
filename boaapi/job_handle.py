@@ -94,6 +94,10 @@ class JobHandle:
         """Return the output size for this job, if it finished successfully and has output."""
         return self.client._output_size(self)
 
+    def output_hash(self):
+        """Return a number of bytes and hash of the output for this job, if it finished successfully and has output."""
+        return self.client._output_hash(self)
+
     def wait(self):
         """Waits for a job to finish.
 
