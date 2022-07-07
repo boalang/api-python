@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/boalang/api-python",
     packages=setuptools.find_packages(),
-    package_data={package: ["py.typed", ".pyi", "**/.pyi"] for package in setuptools.find_packages()}
+    package_data={package: ["py.typed", ".pyi", "**/.pyi"] for package in setuptools.find_packages()},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
