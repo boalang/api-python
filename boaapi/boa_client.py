@@ -17,16 +17,13 @@
 #
 import xml
 import xmlrpc.client
-from boaapi.util import CookiesTransport, parse_job, fetch_url
+from boaapi.util import BoaException, CookiesTransport, parse_job, fetch_url
 from boaapi.status import CompilerStatus, ExecutionStatus
 
 BOA_API_ENDPOINT = "https://boa.cs.iastate.edu/boa/?q=boa/api"
 BOAC_API_ENDPOINT = "https://boa.cs.iastate.edu/boac/?q=boa/api"
 
 class NotLoggedInException(Exception):
-    pass
-
-class BoaException(Exception):
     pass
 
 class BoaClient(object):

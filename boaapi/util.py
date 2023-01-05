@@ -23,7 +23,9 @@ from urllib.parse import urlsplit
 import xmlrpc
 from boaapi.job_handle import JobHandle
 from boaapi.status import CompilerStatus, ExecutionStatus
-import boaapi.boa_client
+
+class BoaException(Exception):
+    pass
 
 class CookiesTransport(xmlrpc.client.SafeTransport):
     """A Transport subclass that retains cookies over its lifetime."""
@@ -74,7 +76,7 @@ def parse_execution_status(status):
 def fetch_url(url):
     base_url = urlsplit(url)
     if base_url.scheme == '':
-        raise boaapi.boa_client.BoaException(url)
+        raise BoaException(url)
 
     if base_url.scheme == 'https':
         conn = http.client.HTTPSConnection(base_url.hostname, base_url.port)
@@ -84,7 +86,7 @@ def fetch_url(url):
     try:
         conn.request("GET", url, headers={ 'Accept-encoding': 'gzip' })
     except http.client.InvalidURL as e:
-        raise boaapi.boa_client.BoaException(url) from e
+        raise BoaException(url) from e
 
     r1 = conn.getresponse()
     if r1.status == 301:
